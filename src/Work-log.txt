@@ -3,3 +3,5 @@ Design gedeelte;
 1. home pagina moet een overzicht chart hebben met gemiddelde van alle studenten.
 
 2. Een lijst met studenten. Als ik er op klik brengt het mij naar de route /{name-of-student}. chart past zich dan aan op individu..
+
+https://github.com/Keyang/node-csvtojson/issues/285  (gewoon converten via online tool)
