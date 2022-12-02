@@ -45,7 +45,7 @@ assignmentNames.forEach( (opdracht, idx ) => { //voor elke opdracht in de lijst
     opdracht.averageRatingM = alleMoei.reduce( (acc,curr) => acc + curr) / alleMoei.length
     opdracht.averageRatingL = alleLeuk.reduce( (acc,curr) => acc + curr) / alleLeuk.length
 })
-console.log(assignmentNames);
+// console.log(assignmentNames);
 // console.log(averageRatingM);
 // console.log(averageRatingL);
 // console.log(mockData);
@@ -87,6 +87,7 @@ const App = () => {
         
         </VictoryChart>
         <Charts/>
+
         
     </div> 
 }
