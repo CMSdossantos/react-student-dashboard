@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import {VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack} from 'victory';
+import {VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryGroup} from 'victory';
 import Charts from './components/Charts.js';
 import mockData from './studentMockData.json';
 
@@ -12,22 +12,24 @@ const hoeMoei = 'Hoe moeilijk vond je deze opdracht?'
 const hoeLeuk = 'Hoe leuk vond je deze opdracht?'
 const assignmentNames = []
 const titles = []
-let alleMoei = []
-let alleLeuk = []
-
+const allAverageRatingM = []
+const allAverageRatingL = []
+let chartResults = []
 
 mockData.forEach((ele,idx) => {
-    if(!assignmentNames.includes(ele[welkOpdr]) &&  idx < 70 ){
+    if(!assignmentNames.some(e => e.name === ele[welkOpdr]) &&  idx < 70 ){
         assignmentNames.push({name: ele[welkOpdr]})
-        titles.push(ele[welkOpdr])
+        chartResults.push({name: ele[welkOpdr]})
     }
 })
-// console.log(assignmentNames);
+// console.log(chartResults);
 
 assignmentNames.forEach( (opdracht, idx ) => { //voor elke opdracht in de lijst
+    let alleMoei = []
+    let alleLeuk = []
     
     mockData.forEach( (ele) => {
-        if(opdracht.name === ele[welkOpdr]){ //Als deze Element in Mockdata dezelfde opdracht heeft
+        if(opdracht.name === ele[welkOpdr]){ //Als deze Element in Mockdata dezelfde opdracht heeft (voor elke "scrum")
             //voeg rating aan array averagemoei/leuk.
             //als er geen averagerating is push deze in de array.
             if(!alleMoei[idx]){ alleMoei.push(ele[hoeMoei]) }
@@ -36,22 +38,25 @@ assignmentNames.forEach( (opdracht, idx ) => { //voor elke opdracht in de lijst
             else { alleLeuk[idx] = ele[hoeLeuk] }
             
             // console.log(`${alleMoei[idx]} += ${ele[hoeMoei]}  en av typeof${typeof alleMoei[idx]} ..${opdracht}`);
-            // console.log(`${alleMoei} + ${idx}`);
+            // console.log(opdracht.name);
             
-            // let averageRatingM = alleMoei.reduce( (acc,curr) => acc + curr) / alleMoei.length
-            // let averageRatingL = alleLeuk.reduce( (acc,curr) => acc + curr) / alleLeuk.length
         }
     })
-    opdracht.averageRatingM = alleMoei.reduce( (acc,curr) => acc + curr) / alleMoei.length
-    opdracht.averageRatingL = alleLeuk.reduce( (acc,curr) => acc + curr) / alleLeuk.length
+    assignmentNames[idx].averageRatingM =  alleMoei.reduce( (acc,curr) => acc + curr , 0) / alleMoei.length 
+    assignmentNames[idx].averageRatingL = alleLeuk.reduce( (acc,curr) => acc + curr , 0) / alleLeuk.length
+    
 })
-// console.log(assignmentNames);
-// console.log(averageRatingM);
+// console.log(chartResults);
+// console.log(alleMoei);
 // console.log(averageRatingL);
 // console.log(mockData);
-// console.log(assignmentNames);
+console.log(assignmentNames);
 
-
+const data = [
+    {name: 'SCRUM', avarageRatingL: '1', averageRatingM: '1'},
+    {name: 'SCRUM', avarageRatingL: '1', averageRatingM: '1'},
+    {name: 'SCRUM', avarageRatingL: '1', averageRatingM: '1'}
+  ]; 
 const evelyn = mockData.map( (ele) => ele['Wie ben je?'] === 'Evelyn'? true : false)
 
 
@@ -69,21 +74,22 @@ const style = {
 
 const App = () => {
     return <div className='scaling'>
-        <VictoryChart  domain={{x: [1 ,56]}} domainPadding={{x: [5,0]}} theme={VictoryTheme.material} width={500} height={200} >
+        <VictoryChart  domain={{x: [1 ,57]}} domainPadding={{x: [5,0]}} theme={VictoryTheme.material} width={500} height={200} >
             <VictoryAxis 
-                tickValues={titles}
-                tickFormat={titles}
+                tickValues={assignmentNames}
+                tickFormat={assignmentNames.name}
                 style={style}
             />
             <VictoryAxis
                 dependentAxis
                 // tickFormat specifies how ticks should be displayed
-                tickFormat={(x) => (`#${x *10}k`)}
+                tickFormat={(x) => (`#${x * 10}k`)}
+                
             />
-            <VictoryStack domain={{ y: [0,10]}}>
-                <VictoryBar data={assignmentNames} x={titles} y={"averageRatingM"} barWidth={2} barRatio={2.0} alignment={"start"}/>
-                <VictoryBar data={assignmentNames} x={titles} y={"averageRatingL"} barWidth={2} barRatio={2.0} alignment={"end"} />
-            </VictoryStack>
+            <VictoryGroup offset={5}> 
+                <VictoryBar data={assignmentNames} x={"name"} y={"averageRatingM"} barRatio={1} />
+                <VictoryBar data={assignmentNames} x={"name"} y={"averageRatingL"} barRatio={1} /> 
+            </VictoryGroup>
         
         </VictoryChart>
         <Charts/>
