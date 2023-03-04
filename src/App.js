@@ -26,23 +26,28 @@ assignmentNames.forEach( name => { //fetching all ratings and calculate averages
 })
 
 
-// console.log(averageResults);
-
 
 const App = () => {
-    // const [chartResults, setChartResults] = useState([])
+    const [chartResults, setChartResults] = useState([averageResults])
+    // console.log(averageResults);
+
 
     const studentRoutes = studentNames.map( name => {
-        const dataByIndividual = mockData.filter(item => item['Wie ben je?'] === name);
-        return <Route key={name} path={`/${name}`} element={<Studentpage subject={dataByIndividual} assignments={assignmentNames} />}  /> 
+        // const dataByIndividual = mockData.filter(item => item['Wie ben je?'] === name);
+        // setChartResults(dataByIndividual);
+        return <Route key={name} path={`/${name}`} element={<Studentpage subject={chartResults} assignments={assignmentNames} />}  /> 
     })
     studentRoutes.push(<Route key="/" path="/" element={<Studentpage subject={averageResults} assignments={assignmentNames} />}  />)
 
-    const studentLinks =  studentNames.map( name =>
-            <li>
-            <Link key={name} to={"/" + name} > {name} </Link>
+    const studentLinks =  studentNames.map( name => {
+        const dataByIndividual = mockData.filter(item => item['Wie ben je?'] === name);
+
+        return (
+            <li key={name} onClick={() => setChartResults(dataByIndividual)}>
+                <Link key={name} to={"/" + name} > {name} </Link>
             </li>
-            )
+        )
+    })
 
 return <div>
         <nav><ul>
