@@ -25,9 +25,10 @@ const Studentpage = ({ subject, assignments }) =>  {
     
     return (
         <div>
-            <h2> {`${subject[1]["Wie ben je?"]}`} </h2>
+            {/* <h2> {`${subject[1]["Wie ben je?"]}`} </h2> */}
             <div className='scaling'>
-            <VictoryChart  domain={{x: [1 ,58], y: [0,5]}} domainPadding={{x: [5,5]}} theme={VictoryTheme.material} width={500} height={200} >
+            <VictoryChart  domain={{x: [1 ,58], y: [0,5]}} domainPadding={{x: [5,5]}} theme={VictoryTheme.material} width={500} height={200}
+            animate={{duration: 2000, easing: 'easeInOut' }} >
                 <VictoryAxis 
                     tickValues={assignments}
                     tickFormat={assignments}
@@ -39,8 +40,8 @@ const Studentpage = ({ subject, assignments }) =>  {
                     tickFormat={(x) => (`${x * 1}`)}
                 />
                 <VictoryGroup offset={2}> 
-                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeMoei} barRatio={2} />
-                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeLeuk} barRatio={2} /> 
+                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeMoei}  />
+                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeLeuk}  /> 
                 </VictoryGroup>
         
             </VictoryChart>

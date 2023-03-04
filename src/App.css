@@ -1,22 +1,53 @@
-.App {
-  text-align: center;
+html {
+  height: 100%;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-image: linear-gradient(to bottom right, #99ccff, #ccffff); 
+  background-repeat: no-repeat;
 }
 
 nav {
-  height: 50px;
-  width: 500px;
-  border: 2px red solid;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  width: 100vw;
+  box-shadow: 0px 5px 4px grey;
+
+  border: 2px grey solid;
 }
 
 .scaling {
-  /* height: 100vh; */
-  /* width: 100vw; */
-  /* overflow-x: scroll; */
-  border: 2px purple solid;
+  margin: 2rem;
+  background-color: rgb(204, 255, 255, 0.7);
+  border-radius: 1.5rem;
+  box-shadow: 5px 8px 12px grey;
+
+  /* border: 2px purple solid; */
 }
 
+ul {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+  /* border: 2px gray solid; */
+}
+li {
+  padding-left: 1em;
+  padding-right: 1em;
+
+  /* border: 2px yellow solid; */
+}
+
+li a {
+  text-decoration: none;
+  font-size: 1.2em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
