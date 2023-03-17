@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import mockData from './studentMockData.json';
 import Studentpage from './components/Studentpage.js'
@@ -28,23 +28,26 @@ assignmentNames.forEach( name => { //fetching all ratings and calculate averages
 
 
 const App = () => {
-    const [chartResults, setChartResults] = useState([averageResults])
+    const [chartResults, setChartResults] = useState([])
     // console.log(averageResults);
-
+    // const [chartResults, setChartResults] = useState([]);
+    useEffect(() => {
+        setChartResults(chartResults);
+    }, [chartResults]);
 
     const studentRoutes = studentNames.map( name => {
         // const dataByIndividual = mockData.filter(item => item['Wie ben je?'] === name);
         // setChartResults(dataByIndividual);
         return <Route key={name} path={`/${name}`} element={<Studentpage subject={chartResults} assignments={assignmentNames} />}  /> 
     })
-    studentRoutes.push(<Route key="/" path="/" element={<Studentpage subject={averageResults} assignments={assignmentNames} />}  />)
+    studentRoutes.push(<Route exact key="/" path="/" element={<Studentpage subject={averageResults} assignments={assignmentNames} />}  />)
 
     const studentLinks =  studentNames.map( name => {
         const dataByIndividual = mockData.filter(item => item['Wie ben je?'] === name);
 
         return (
-            <li key={name} onClick={() => setChartResults(dataByIndividual)}>
-                <Link key={name} to={"/" + name} > {name} </Link>
+            <li key={name}  onClick={() => setChartResults(dataByIndividual)}  >
+                <Link key={name} to={"/" + name}  > {name} </Link>
             </li>
         )
     })

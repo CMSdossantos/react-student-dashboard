@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState , useEffect} from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryGroup } from 'victory';
 
 // const welkOpdr = 'Welke opdracht of welk project lever je nu in?'
@@ -6,7 +6,12 @@ const hoeMoei = 'Hoe moeilijk vond je deze opdracht?'
 const hoeLeuk = 'Hoe leuk vond je deze opdracht?'
 
 const Studentpage = ({ subject, assignments }) =>  {
-    // console.log(subject);
+    console.log(subject);
+
+    // const [chartResults, setChartResults] = useState([]);
+    // useEffect(() => {
+    //     setChartResults(subject);
+    // }, [subject]);
 
     const style = {
         tickLabels: {
@@ -27,7 +32,7 @@ const Studentpage = ({ subject, assignments }) =>  {
             {/* <h2> {`${subject[1]["Wie ben je?"]}`} </h2> */}
             <div className='scaling'>
             <VictoryChart  domain={{x: [1 ,58], y: [0,5]}} domainPadding={{x: [5,5]}} theme={VictoryTheme.material} width={500} height={200}
-             >
+            animate={{ duration: 2000}} >
                 <VictoryAxis 
                     tickValues={assignments}
                     tickFormat={assignments}
@@ -39,8 +44,8 @@ const Studentpage = ({ subject, assignments }) =>  {
                     tickFormat={(x) => (`${x * 1}`)}
                 />
                 <VictoryGroup offset={2}> 
-                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeMoei} animate={{duration: 2000 }} />
-                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeLeuk} animate={{duration: 2000 }} /> 
+                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeMoei} animate={{ duration: 2000}} />
+                    <VictoryBar data={subject} x={"Welke opdracht of welk project lever je nu in?"} y={hoeLeuk} animate={{ duration: 2000}} /> 
                 </VictoryGroup>
         
             </VictoryChart>
